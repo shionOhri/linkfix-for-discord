@@ -25,52 +25,21 @@ You can easily self-host this bot with Docker using the following steps:
 2. Edit `docker-compose.yml` and change the line reading `DISCORD_BOT_TOKEN=` to specify your bot's token.
 3. Run `docker compose up -d` to start the bot.
 
-**NB:** See [discordjs.guide][2] for instructions on how to install Node.js,
-set up a bot, get a token, and add it to a server.
+**NB:** See [discordjs.guide][2] for instructions on how to create a bot, get a
+token, and add the bot to a server.
 
 
 ## Contributing
 
-### Set local development
-
-Follow these steps to get the code up and running:
-
-1) Clone the repo :hugs:
-2) Run `npm install`
-3) Copy `.env.example` to `.env`
-4) Edit `DISCORD_BOT_TOKEN=` in `.env` to provide your bot token
-5) Run `npm run build && npm start`. You're good to go!
-
-### Building and running the Docker image
-
-If you want to build and run the Docker image, follow these steps:
-
-1) Follow steps 1-4 from the above list
-2) Run `docker build . --file Dockerfile --tag linkfix` to build the image
-3) Start the container with `docker run --env-file ./.env --name linkfix linkfix` to start the bot!
-
-**NB:** Starting the bot with `docker run` will take over your terminal and
-ctrl+c will **not** be able to kill the process. You will have to open another
-terminal and run `docker kill linkfix` to kill the process. Not sure why this
-is the case! :grinning:
-
-### Pull Requests
-
-PRs will only be accepted if they:
-
-- Pass all workflow checks:
-   - `npm run lint` passes
-   - `docker build` succeeds
-
-Please write a detailed description for your PR! Also note commit messages will
-be squashed as part of the merge.
+**TODO:** Write `CONTRIBUTING.md` with updated instructions for setting up the
+Python environment.
 
 
 ## License
 
 ```
 LinkFix for Discord - A Discord bot for improving link embeds.
-Copyright (C) 2023  Ralph and suchipi
+Copyright (C) 2023  Ralph <ralph@podaboutli.st>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by

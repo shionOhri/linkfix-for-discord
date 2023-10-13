@@ -1,35 +1,61 @@
-name: Lint TypeScript and build Dockerfile
-on: [push, pull_request]
+name: Lint with Ruff and Black, build Docker image
+
+on:
+  - push
+  - pull_request
+
 jobs:
-  prettier_lint:
+  lint:
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.11", "3.12"]
+        poetry-version: ["1.6.1"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-python@v4
         with:
-          node-version: 'lts/*'
+          python-version: ${{ matrix.python-version }}
 
-      - name: Cache NPM Dependencies
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+
+      - name: Configure Poetry to use local virtualenv
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+
+      - name: Cache local virtualenv
         uses: actions/cache@v3
         with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
 
-      - name: Install dependencies with NPM
-        run: npm ci --ignore-scripts
+      - name: Install project dependencies
+        run: poetry install --without dev --no-root --no-directory
 
-      - name: Lint src/**/*.ts with Prettier
-        run: npm run lint
+      - name: Lint with Ruff
+        uses: chartboost/ruff-action@v1
+        with:
+          options: "check --config ./pyproject.toml --output-format github"
+          src: "./src"
+
+      - name: Lint with Black
+        uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+          src: "./src"
 
   docker_build:
     runs-on: ubuntu-latest
     # Don't try to build the Docker image unless linting succeeds
-    needs: prettier_lint
+    needs: lint
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build . --file Dockerfile --tag ghcr.io/podaboutlist/linkfix-for-discord:$(date +%s)
+        run: docker build . --file Dockerfile --tag linkfix-for-discord:$(date +%s)
