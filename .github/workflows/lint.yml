@@ -4,9 +4,6 @@ on:
   - push
   - pull_request
 
-env:
-  RUFF_OUTPUT_FORMAT: 'github'
-
 jobs:
   lint:
     strategy:
