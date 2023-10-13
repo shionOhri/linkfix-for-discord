@@ -41,7 +41,7 @@ jobs:
       - name: Lint with Ruff
         uses: chartboost/ruff-action@v1
         with:
-          options: "check --config ./pyproject.toml --output-format github"
+          args: "--config ./pyproject.toml --output-format github"
           src: "./src"
 
       - name: Lint with Black
