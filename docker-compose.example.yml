@@ -5,7 +5,7 @@
 
 services:
   linkfix_bot:
-    image: ghcr.io/podaboutlist/linkfix-for-discord:latest
+    image: ghcr.io/shionohri/linkfix-for-discord:latest
     environment:
       - DISCORD_BOT_TOKEN=your.bot.token.here
       - FXTWITTER_URL=fxtwitter.com
