@@ -36,7 +36,7 @@ client.on(Events.MessageCreate, (message) => {
 
   if (reply !== "") {
     message
-      .reply.spoiler({ content: reply, allowedMentions: { repliedUser: false } })
+      .reply({ content: spoiler(reply), allowedMentions: { repliedUser: false } })
       .catch((err) => {
         console.error("Failed to reply:", err);
       });
