@@ -36,7 +36,7 @@ client.on(Events.MessageCreate, (message) => {
 
   if (reply !== "") {
     message
-      .reply({ content: reply, allowedMentions: { repliedUser: false }, spoiler: true })
+      .reply('||${ content: reply, allowedMentions: { repliedUser: false } }||')
       .catch((err) => {
         console.error("Failed to reply:", err);
       });
