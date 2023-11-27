@@ -29,7 +29,7 @@ client.on(Events.MessageCreate, (message) => {
     if (message.content.includes(identifier)) {
       const result = replacer(message.content);
       if (result) {
-        if (message.content.includes("||") {
+        if (message.content.includes("||")) {
           reply += "should have spoiler ";
         }
         reply += "|| " + result + " ||" + "\n";
