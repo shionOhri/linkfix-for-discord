@@ -32,7 +32,11 @@ client.on(Events.MessageCreate, (message) => {
         if (message.content.includes("||")) {
           reply += "|| ";
         }
-        reply += result + " || \n";
+        reply += result;
+        if (message.content.includes("||")) {
+          reply += " ||";
+        }
+        reply += "\n";
       }
     }
   }
