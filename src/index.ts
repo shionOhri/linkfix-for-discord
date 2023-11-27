@@ -29,7 +29,12 @@ client.on(Events.MessageCreate, (message) => {
     if (message.content.includes(identifier)) {
       const result = replacer(message.content);
       if (result) {
-        reply += result + "\n";
+        if ("\|\|" in message.content {
+          reply = "\|\|" + result + "\|\|\n";
+        }
+        else {
+          reply += result + "\n";
+        }
       }
     }
   }
