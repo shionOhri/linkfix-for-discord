@@ -27,12 +27,7 @@ client.on(Events.MessageCreate, (message) => {
   let reply = "";
   for (const [identifier, replacer] of replacementsEntries) {
     if (message.content.includes(identifier)) {
-        if (message.content.includes("||")) {
-          const result = "\|\|" + replacer(message.content) + "\|\|";
-        }
-        else {
-          const result = replacer(message.content);
-        }
+      const result = replacer(message.content);
       if (result) {
         reply += result + "\n";
       }
