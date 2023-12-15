@@ -56,8 +56,7 @@ export const replacements: {
       return null;
     }
   },
-  
-  "//tiktok.com": (content) => {
+  "//tiktok.com/": (content) => {
     const urls = getUrls(content, /https?:\/\/tiktok\.com\/[^\s]+/g);
     if (urls.length > 0) {
       return urls.map((url) => fixTikTokURL(url)).join("\n");
@@ -65,7 +64,6 @@ export const replacements: {
       return null;
     }
   },
-  
   "youtube.com/shorts/": (content) => {
     const urls = getUrls(content, /https?:\/\/(www\.)?youtube\.com\/[^\s]+/g);
     if (urls.length > 0) {
