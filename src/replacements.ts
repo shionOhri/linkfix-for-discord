@@ -19,7 +19,7 @@ function fixYTShortsURL(content: string): string {
 }
 
 function fixTikTokURL(content: string): string {
- let c = content.replace(/\/\/tiktok.com\//, "vxtiktok.com/");
+  let c = content.replace(/\/\/tiktok.com\//, "vxtiktok.com/");
   c = c.replace(/\?.*/, "");
 
   return c;
