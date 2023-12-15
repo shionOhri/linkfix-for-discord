@@ -56,7 +56,7 @@ export const replacements: {
       return null;
     }
   },
-  "//tiktok.com/": (content) => {
+  "//www.tiktok.com/": (content) => {
     const urls = getUrls(content, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
     if (urls.length > 0) {
       return urls.map((url) => fixTikTokURL(url)).join("\n");
