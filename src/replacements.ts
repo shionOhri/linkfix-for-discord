@@ -18,6 +18,13 @@ function fixYTShortsURL(content: string): string {
   return c;
 }
 
+function fixTikTokURL(content: string): string {
+ let c = content.replace(/(www\.)?(tiktok.com\/)/, "vxtiktok.com/");
+  c = c.replace(/\?.*/, "");
+
+  return c;
+}
+
 function fixTwitterURL(content: string): string {
   let c = content.replace(
     /\/\/(x|twitter).com\//,
@@ -49,6 +56,16 @@ export const replacements: {
       return null;
     }
   },
+  
+  "//tiktok.com": (content) => {
+    const urls = getUrls(content, /https?:\/\/tiktok\.com\/[^\s]+/g);
+    if (urls.length > 0) {
+      return urls.map((url) => fixTikTokURL(url)).join("\n");
+    } else {
+      return null;
+    }
+  },
+  
   "youtube.com/shorts/": (content) => {
     const urls = getUrls(content, /https?:\/\/(www\.)?youtube\.com\/[^\s]+/g);
     if (urls.length > 0) {
