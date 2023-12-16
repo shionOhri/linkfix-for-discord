@@ -18,6 +18,13 @@ function fixYTShortsURL(content: string): string {
   return c;
 }
 
+function fixInstagramURL(content: string): string {
+  let c = content.replace(/(www\.)?(instagram.com\/)/, "ddinstagram.com/");
+  c = c.replace(/\?.*/, "");
+
+  return c;
+}
+
 function fixTikTokURL(content: string): string {
   let c = content.replace(/(www\.)?(tiktok.com\/)/, "vxtiktok.com/");
   c = c.replace(/\?.*/, "");
@@ -52,6 +59,14 @@ export const replacements: {
     const urls = getUrls(content, /https?:\/\/twitter\.com\/[^\s]+/g);
     if (urls.length > 0) {
       return urls.map((url) => fixTwitterURL(url)).join("\n");
+    } else {
+      return null;
+    }
+  },
+  "//www.instagram.com/": (content) => {
+    const urls = getUrls(content, /https?:\/\/(www\.)?instagram\.com\/[^\s]+/g);
+    if (urls.length > 0) {
+      return urls.map((url) => fixInstagramURL(url)).join("\n");
     } else {
       return null;
     }
