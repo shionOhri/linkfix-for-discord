@@ -1,8 +1,5 @@
 // import dotenv from "dotenv";
 // dotenv.config();
-import requests;
-
-headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'};
 
 // NOTE: regexp must have the 'g' flag or else `matchAll` will throw
 function getUrls(content: string, regexp: RegExp): Array<string> {
@@ -83,7 +80,7 @@ export const replacements: {
     }
   },
   "//vm.tiktok.com/": (content) => {
-    const urls = getUrls(content, /https?:\/\/(vm\.)?tiktok\.com\/[^\s]+/g);
+    const urls = getUrls(content, /https:\/\/(?:m|www|vm)?\.?tiktok\.com\/((?:.*\b(?:(?:usr|v|embed|user|video)\/|\?shareId=|\&item_id=)(\d+))|\w+));
     if (urls.length > 0) {
       let f = requests.get(urls, headers=headers);
       return f.map((url) => fixTikTokURL(url)).join("\n");
