@@ -26,7 +26,7 @@ function fixInstagramURL(content: string): string {
 }
 
 function fixTikTokURL(content: string): string {
-  let c = content.replace(/(www\.)?(vm\.)?(tiktok.com\/)/, "vxtiktok.com/");
+  let c = content.replace(/(www\.)?(tiktok.com\/)/, "vxtiktok.com/");
   c = c.replace(/\?.*/, "");
 
   return c;
@@ -72,6 +72,14 @@ export const replacements: {
     }
   },
   "//www.tiktok.com/": (content) => {
+    const urls = getUrls(content, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
+    if (urls.length > 0) {
+      return urls.map((url) => fixTikTokURL(url)).join("\n");
+    } else {
+      return null;
+    }
+  },
+  "//vm.tiktok.com/": (content) => {
     const urls = getUrls(content, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
     if (urls.length > 0) {
       return urls.map((url) => fixTikTokURL(url)).join("\n");
