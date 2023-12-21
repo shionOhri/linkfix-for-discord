@@ -80,7 +80,7 @@ export const replacements: {
     }
   },
   "//vm.tiktok.com/": (content) => {
-    const urls = getUrls(content, /https:\/\/(?:m|www|vm)?\.?tiktok\.com\/((?:.*\b(?:(?:usr|v|embed|user|video)\/|\?shareId=|\&item_id=)(\d+))|\w+));
+    const urls = getUrls(content, /https?:\/\/(?:m|www|vm)?\.?tiktok\.com\/((?:.*\b(?:(?:usr|v|embed|user|video)\/|\?shareId=|\&item_id=)(\d+))|\w+));
     if (urls.length > 0) {
       let f = requests.get(urls, headers=headers);
       return f.map((url) => fixTikTokURL(url)).join("\n");
