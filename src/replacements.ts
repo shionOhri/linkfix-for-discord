@@ -38,7 +38,7 @@ function fixVMTikTokURL(content: string): string {
     .get(urls)
     .then(function (response) {
       const newURL = getUrls(response.request.res.responseURL, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
-      c = newUrl;
+      c = newURL;
     }).catch(function (no200) {
       console.error("400, 404, and other events");
     });
