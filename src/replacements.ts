@@ -35,10 +35,10 @@ function fixTikTokURL(content: string): string {
 function fixVMTikTokURL(content: string): string {
   let c = "";
   axios
-    .get(content as string)
+    .get(content)
     .then(function (response) {
       const newURL = getUrls(response.request.res.responseURL, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
-      c = newURL;
+      c = newURL as string;
     }).catch(function (no200) {
       console.error("400, 404, and other events");
     });
