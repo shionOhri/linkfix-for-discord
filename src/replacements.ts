@@ -33,6 +33,13 @@ function fixTikTokURL(content: string): string {
   return c;
 }
 
+function fixVMTikTokURL(content: string): string {
+  let c = content.replace(/(vm\.)?(tiktok.com\/)/, "vxtiktok.com/");
+  c = c.replace(/\?.*/, "");
+
+  return c;
+}
+
 function fixTwitterURL(content: string): string {
   let c = content.replace(
     /\/\/(x|twitter).com\//,
@@ -83,7 +90,7 @@ export const replacements: {
   "//vm.tiktok.com/": (content) => {
     const urls = getUrls(content, /https?:\/\/(vm\.)?tiktok\.com\/[^\s]+/g);
     if (urls.length > 0) {
-      return urls.map((url) => fixTikTokURL(url)).join("\n");
+      return urls.map((url) => fixVMTikTokURL(url)).join("\n");
     } else {
       return null;
     }
