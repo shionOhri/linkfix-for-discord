@@ -1,7 +1,7 @@
 //const axios = require("axios");
 // import dotenv from "dotenv";
 // dotenv.config();
-
+const axios = require("axios");
 // NOTE: regexp must have the 'g' flag or else `matchAll` will throw
 function getUrls(content: string, regexp: RegExp): Array<string> {
   const urls: Array<string> = [];
@@ -89,6 +89,7 @@ export const replacements: {
   },
   "//vm.tiktok.com/": (content) => {
     const urls = getUrls(content, /https?:\/\/(vm\.)?tiktok\.com\/[^\s]+/g);
+    const axios = require("axios");
     if (urls.length > 0) {
       return urls.map((url) => fixVMTikTokURL(url)).join("\n");
     } else {
