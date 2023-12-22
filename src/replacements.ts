@@ -1,4 +1,4 @@
-//const axios = require("axios");
+const axios = require("axios");
 // import dotenv from "dotenv";
 // dotenv.config();
 // NOTE: regexp must have the 'g' flag or else `matchAll` will throw
@@ -33,9 +33,17 @@ function fixTikTokURL(content: string): string {
 }
 
 function fixVMTikTokURL(content: string): string {
-  let c = content.replace(/(vm\.)?(tiktok.com\/)/, "vxtiktok.com/");
+  let c = "";
+  axios
+    .get(urls)
+    .then(function (response) {
+      const newURL = getUrls(response.request.res.responseURL, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
+      c = newUrl;
+    }).catch(function (no200) {
+      console.error("400, 404, and other events");
+    });
+  c = content.replace(/(www\.)?(tiktok.com\/)/, "vxtiktok.com/");
   c = c.replace(/\?.*/, "");
-
   return c;
 }
 
@@ -88,17 +96,6 @@ export const replacements: {
   },
   "//vm.tiktok.com/": (content) => {
     const urls = getUrls(content, /https?:\/\/(vm\.)?tiktok\.com\/[^\s]+/g);
-    const axios = require("axios");
-    const parsedUrl = getUrls(axios.getUri(urls), /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
-    console.log(parsedUrl);
-    /*axios
-      .get(urls)
-      .then(function (response) {
-        const newURL = getUrls(response.request.res.responseURL, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
-        console.log(newURL.host);
-      }).catch(function (no200) {
-        console.error("400, 404, and other events");
-      });*/
     if (urls.length > 0) {
       return urls.map((url) => fixVMTikTokURL(url)).join("\n");
     } else {
