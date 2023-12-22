@@ -35,7 +35,7 @@ function fixTikTokURL(content: string): string {
 function fixVMTikTokURL(content: string): string {
   let c = "";
   axios
-    .get(urls)
+    .get(content)
     .then(function (response) {
       const newURL = getUrls(response.request.res.responseURL, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
       c = newURL;
