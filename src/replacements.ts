@@ -89,15 +89,16 @@ export const replacements: {
   },
   "//vm.tiktok.com/": (content) => {
     const urls = getUrls(content, /https?:\/\/(vm\.)?tiktok\.com\/[^\s]+/g);
+    let n = "";
     const axios = require("axios");
     if (urls.length > 0) {
       axios.get(urls)
         .then(function(response) {
-          const newUrls = response.request.res.responseURL;
+          n = response.request.res.responseURL;
         }).catch(function(no200) {
           console.error("400, 400, and other events");
         });
-      return newUrls.map((url) => fixVMTikTokURL(url)).join("\n");
+      return n.map((url) => fixVMTikTokURL(url)).join("\n");
     } else {
       return null;
     }
