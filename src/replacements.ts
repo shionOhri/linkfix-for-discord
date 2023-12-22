@@ -97,10 +97,7 @@ export const replacements: {
     }
   },
   "instagram.com/": (content) => {
-    const urls = getUrls(
-      content,
-      /https?:\/\/(www\.)?instagram\.com\/[^\s]+/g,
-    );
+    const urls = getUrls(content, /https?:\/\/(www\.)?instagram\.com\/[^\s]+/g);
     if (process.env.INSTAGRAM_FIX_URL && urls.length > 0) {
       return urls.map((url) => fixInstagramURL(url)).join("\n");
     } else {
@@ -130,10 +127,7 @@ export const replacements: {
     }
   },
   "redd.it/": (content) => {
-    const urls = getUrls(
-      content,
-      /https?:\/\/redd\.it\/[^\s]+/g,
-    );
+    const urls = getUrls(content, /https?:\/\/redd\.it\/[^\s]+/g);
     if (process.env.REDDIT_FIX_URL && urls.length > 0) {
       return urls.map((url) => fixRedditURL(url)).join("\n");
     } else {
