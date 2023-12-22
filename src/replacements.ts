@@ -93,11 +93,11 @@ export const replacements: {
     if (urls.length > 0) {
       axios.get(urls)
         .then(function(response) {
-          urls = response.request.res.responseURL;
+          const newUrls = response.request.res.responseURL;
         }).catch(function(no200) {
           console.error("400, 400, and other events");
         });
-      return urls.map((url) => fixVMTikTokURL(url)).join("\n");
+      return newUrls.map((url) => fixVMTikTokURL(url)).join("\n");
     } else {
       return null;
     }
