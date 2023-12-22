@@ -12,7 +12,7 @@ WORKDIR /app
 
 # Install dependencies with NPM
 COPY package*.json .
-RUN npm ci --omit=dev
+RUN npm install --omit=dev
 COPY . .
 
 RUN [ "npm", "run", "build" ]
