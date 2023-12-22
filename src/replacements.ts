@@ -91,11 +91,12 @@ export const replacements: {
     const urls = getUrls(content, /https?:\/\/(vm\.)?tiktok\.com\/[^\s]+/g);
     const axios = require("axios");
     if (urls.length > 0) {
-      axios.get(urls).then(function(response) {
-        const parsedUrl = response.request.res.responseURL;
-      }).catch(function(no200){
-        console.error("400, 400, and other events");
-      });
+      axios.get(urls)
+        .then(function(response) {
+          const parsedUrl = response.request.res.responseURL;
+        }).catch(function(no200) {
+          console.error("400, 400, and other events");
+        });
       return parsedUrl.map((url) => fixVMTikTokURL(url)).join("\n");
     } else {
       return null;
