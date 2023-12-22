@@ -37,8 +37,9 @@ function fixVMTikTokURL(content: string): string {
   axios
     .get(content)
     .then(function (response) {
-       c = response.request.res.responseURL;
-    }).catch(function (no200) {
+      c = response.request.res.responseURL;
+    })
+    .catch(function (no200) {
       console.error("400, 404, and other events");
     });
   c = content.replace(/(www\.)?(tiktok.com\/)/, "vxtiktok.com/");
