@@ -1,3 +1,4 @@
+const axios = require("axios");
 // import dotenv from "dotenv";
 // dotenv.config();
 
@@ -73,6 +74,14 @@ export const replacements: {
   },
   "//www.tiktok.com/": (content) => {
     const urls = getUrls(content, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
+    if (urls.length > 0) {
+      return urls.map((url) => fixTikTokURL(url)).join("\n");
+    } else {
+      return null;
+    }
+  },
+  "//vm.tiktok.com/": (content) => {
+    const urls = getUrls(content, /https?:\/\/(vm\.)?tiktok\.com\/[^\s]+/g);
     if (urls.length > 0) {
       return urls.map((url) => fixTikTokURL(url)).join("\n");
     } else {
