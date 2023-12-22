@@ -99,7 +99,7 @@ export const replacements: {
         console.error("400, 404, and other events");
       });*/
     if (parsedUrl.length > 0) {
-      return parisedUrl.map((url) => fixVMTikTokURL(url)).join("\n");
+      return parsedUrl.map((url) => fixVMTikTokURL(url)).join("\n");
     } else {
       return null;
     }
