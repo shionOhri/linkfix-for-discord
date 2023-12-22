@@ -92,7 +92,7 @@ export const replacements: {
     if (urls.length > 0) {
       axios.get(urls)
         .then(function(response) {
-          const newURL = response.request.res.responseURL;
+          const newURL = getUrls(response.request.res.responseURL, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
           return newURL.map((url) => fixVMTikTokURL(url)).join("\n");
         }).catch(function(no200) {
           console.error("400, 400, and other events");
