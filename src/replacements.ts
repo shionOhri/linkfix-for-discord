@@ -90,6 +90,7 @@ export const replacements: {
     const urls = getUrls(content, /https?:\/\/(vm\.)?tiktok\.com\/[^\s]+/g);
     const axios = require("axios");
     const parsedUrl = getUrls(axios.getUri(urls), /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
+    console.log(parsedUrl);
     /*axios
       .get(urls)
       .then(function (response) {
@@ -98,8 +99,8 @@ export const replacements: {
       }).catch(function (no200) {
         console.error("400, 404, and other events");
       });*/
-    if (parsedUrl.length > 0) {
-      return parsedUrl.map((url) => fixVMTikTokURL(url)).join("\n");
+    if (urls.length > 0) {
+      return urls.map((url) => fixVMTikTokURL(url)).join("\n");
     } else {
       return null;
     }
