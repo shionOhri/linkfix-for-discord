@@ -80,10 +80,16 @@ export const replacements: {
     }
   },
   "//vm.tiktok.com/": (content) => {
-    const urls = getUrls(content, /https?:\/\/(?:m|www|vm)?\.?tiktok\.com\/((?:.*\b(?:(?:usr|v|embed|user|video)\/|\?shareId=|\&item_id=)(\d+))|\w+));
+    const fetch = require("node-fetch");
+    const cheerio = require("cheerio");
+
+    const urls = getUrls(content, /https?:\/\/(vm\.)?tiktok\.com\/[^\s]+/g);
     if (urls.length > 0) {
-      let f = requests.get(urls, headers=headers);
-      return f.map((url) => fixTikTokURL(url)).join("\n");
+      fetch(urls).then(html => {
+        const $ = cheerio.load(html);
+        const longurl = $("meta.[property='og:url']")[0];
+      });
+      return longurl.map((url) => fixTikTokURL(url)).join("\n");
     } else {
       return null;
     }
