@@ -79,21 +79,6 @@ export const replacements: {
       return null;
     }
   },
-  "//vm.tiktok.com/": (content) => {
-    const fetch = require("node-fetch");
-    const cheerio = require("cheerio");
-
-    const urls = getUrls(content, /https?:\/\/(vm\.)?tiktok\.com\/[^\s]+/g);
-    if (urls.length > 0) {
-      fetch(urls).then(html => {
-        const $ = cheerio.load(html);
-        const longurl = $("meta.[property='og:url']")[0];
-      });
-      return longurl.map((url) => fixTikTokURL(url)).join("\n");
-    } else {
-      return null;
-    }
-  },
   "youtube.com/shorts/": (content) => {
     const urls = getUrls(content, /https?:\/\/(www\.)?youtube\.com\/[^\s]+/g);
     if (urls.length > 0) {
