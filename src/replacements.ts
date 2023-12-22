@@ -89,14 +89,17 @@ export const replacements: {
   "//vm.tiktok.com/": (content) => {
     const urls = getUrls(content, /https?:\/\/(vm\.)?tiktok\.com\/[^\s]+/g);
     const axios = require("axios");
-    if (urls.length > 0) {
-      axios.get(urls)
-        .then(function(response) {
-          const newURL = getUrls(response.request.res.responseURL, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
-          return newURL.map((url) => fixVMTikTokURL(url)).join("\n");
-        }).catch(function(no200) {
-          console.error("400, 400, and other events");
-        });
+    const parsedUrl = getUrls(axios.getUri(urls), /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
+    /*axios
+      .get(urls)
+      .then(function (response) {
+        const newURL = getUrls(response.request.res.responseURL, /https?:\/\/(www\.)?tiktok\.com\/[^\s]+/g);
+        console.log(newURL.host);
+      }).catch(function (no200) {
+        console.error("400, 404, and other events");
+      });*/
+    if (parsedUrl.length > 0) {
+      return parisedUrl.map((url) => fixVMTikTokURL(url)).join("\n");
     } else {
       return null;
     }
