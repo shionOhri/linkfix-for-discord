@@ -37,7 +37,7 @@ client.on(Events.MessageCreate, (message) => {
           reply += " ||";
         }
         reply += "\n";
-        message.surppressEmbeds(true); //Removes embed from previous message if bot sends fixed link
+        message.suppressEmbeds(true); //Removes embed from previous message if bot sends fixed link
       }
     }
   }
