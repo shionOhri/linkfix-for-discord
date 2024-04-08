@@ -46,11 +46,11 @@ client.on(Events.MessageCreate, (message) => {
       .reply({ content: reply, allowedMentions: { repliedUser: false } })
       .catch((err) => {
         console.error("Failed to reply:", err);
-        setTimeout(function () {
-          //Delay function to give Discord time to produce the embed, then remove it
-          message.suppressEmbeds(true); //Removes embed from previous message if bot sends fixed link
-        }, 3000);
       });
+    setTimeout(function () {
+      //Delay function to give Discord time to produce the embed, then remove it
+      message.suppressEmbeds(true); //Removes embed from previous message if bot sends fixed link
+    }, 3000);
   }
 });
 
